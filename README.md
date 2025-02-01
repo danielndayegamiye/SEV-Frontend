@@ -22,14 +22,11 @@ npm install
 npm run dev
 ```
 
-### Compile and Minify for Production
+### Add a local .env file and make sure the client ID and client secret are the values you have registered with Google.
 
 ```sh
-npm run build
-```
+VITE_CLIENT_ID = 'your-google-client-id'
+VITE_CLIENT_URL = 'http://localhost:8081'
+VITE_API_URL = 'https://accounts.google.com/gsi/client'
 
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
 ```
