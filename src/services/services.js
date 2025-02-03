@@ -4,7 +4,7 @@ import AuthServices from './authServices.js'
 import Router from '../router/index.js'
 var baseurl = ''
 if (import.meta.env.DEV) {
-  baseurl = 'http://localhost:3037/flight-plan-t7'
+  baseurl = 'http://localhost:3100/eagleflight/'
 } else {
   baseurl = '/flight-plan-t7/'
 }
