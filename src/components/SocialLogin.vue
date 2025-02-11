@@ -64,14 +64,7 @@ const handleCredentialResponse = async response => {
     fName.value = user.value.fName
     lName.value = user.value.lName
     role.value = user.value.role
-
-    if (role.value === 'student') {
       router.push({ name: 'home' })
-    } else if (role.value === 'admin') {
-      router.push({ name: 'admin' })
-    } else {
-      console.error('Unexpected role:', role.value)
-    }
   } catch (error) {
     console.error('Login failed', error)
     errorMessage.value = 'Login failed. Please try again.'
