@@ -1,12 +1,9 @@
 <template>
   <title>Login</title>
   <v-container
-    class="d-flex flex-column align-center"
-    style="padding-top: 60px"
+    class="d-flex flex-column align-center justify-center"
+    style="height: 100vh;"
   >
-    <v-row justify="center" class="mb-0" style="margin-left: -15px">
-      <img src="@/assets/logo.svg" width="400" height="250" />
-    </v-row>
     <div class="login-card">
       <h3>Login</h3>
       <br /><br />
