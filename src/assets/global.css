@@ -75,3 +75,13 @@
     margin-right: 60px;
     margin-bottom: 80px;
   }
+
+  .event-card{
+    margin-top: 20px;
+    margin-right: 100px;
+  }
+
+  .right-column-button{
+    margin-top: 20px;
+    width: 76%;
+  }
