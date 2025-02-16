@@ -40,4 +40,4 @@ jobs:
           SOURCE: 'dist/'
           REMOTE_HOST: 'flightplan.eaglesoftwareteam.com'
           REMOTE_USER: ubuntu
-          TARGET: '/var/www/html/2025/flight-plan-t7'
+          TARGET: '/var/www/html/2025/flight-plan/t7'
