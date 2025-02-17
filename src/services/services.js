@@ -6,7 +6,7 @@ var baseurl = ''
 if (import.meta.env.DEV) {
   baseurl = 'http://localhost:3037/eagleflight/'
 } else {
-  baseurl = '/flight-plan-t7/'
+  baseurl = '/eagleflight/'
 }
 const apiClient = axios.create({
   baseURL: baseurl,
