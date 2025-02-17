@@ -8,6 +8,7 @@ export default defineConfig({
   plugins: [
     vue(),
   ],
+  base: '/2025/flight-plan/t7/',
   server: {
     port: 8081,
   },
