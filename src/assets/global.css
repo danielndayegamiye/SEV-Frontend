@@ -85,3 +85,12 @@
     margin-top: 20px;
     width: 76%;
   }
+
+  .menu-item:hover{
+    background-color: lightgray;
+    cursor: pointer;
+  }
+
+  .menu-list{
+    width: 150px;
+  }

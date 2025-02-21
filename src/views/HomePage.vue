@@ -1,9 +1,37 @@
 <template>
 <div class="app-container">
 <v-app-bar class="app-bar" :elevation="5">
-  <template v-slot:prepend>
-    <v-app-bar-nav-icon color="#f9f9f9"></v-app-bar-nav-icon>
-  </template>
+  <v-menu open-on-click offset-y>
+      <template v-slot:activator="{ props }">
+        <v-app-bar-nav-icon color="#f9f9f9" v-bind="props"></v-app-bar-nav-icon>
+      </template>
+      
+      <v-list class="menu-list">
+        <v-list-item to="/home" class="menu-item">
+          <v-list-item-title>Home</v-list-item-title>
+        </v-list-item>
+
+        <v-list-item to="" class="menu-item">
+          <v-list-item-title>Completion</v-list-item-title>
+        </v-list-item>
+
+        <v-list-item to="" class="menu-item">
+          <v-list-item-title>Checklist</v-list-item-title>
+        </v-list-item>
+
+        <v-list-item to="" class="menu-item">
+          <v-list-item-title>Badges</v-list-item-title>
+        </v-list-item>
+
+        <v-list-item to="" class="menu-item">
+          <v-list-item-title>Awards</v-list-item-title>
+        </v-list-item>
+
+        <v-list-item to="" class="menu-item">
+          <v-list-item-title>Events</v-list-item-title>
+        </v-list-item>
+      </v-list>
+    </v-menu>
 
   <v-spacer></v-spacer>
   <v-avatar style="margin-right: 16px;">
