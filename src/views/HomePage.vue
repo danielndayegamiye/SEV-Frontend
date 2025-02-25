@@ -108,63 +108,7 @@
 </template>
 
 <script>
-import AuthServices from '../services/authServices'
-import Utils from '../config/utils.js'
 
-export default {
-  name: 'HomePage',
-  data() {
-    return {
-      user: {},
-      currentDate: new Date().toLocaleDateString()
-    }
-  },
-  computed: {
-    userInitials() {
-      if (this.user.fName && this.user.lName) {
-        return `${this.user.fName.charAt(0)}${this.user.lName.charAt(0)}`.toUpperCase();
-      }
-      return '';
-    }
-  },
-  mounted() {
-    this.fetchUserData()
-  },
-  methods: {
-    async fetchUserData() {
-      const storedUser = Utils.getStore('user')
-      if (storedUser) {
-        this.user = storedUser
-      } else {
-        try {
-          const response = await AuthServices.getUserData()
-          this.user = response.data
-          Utils.setStore('user', this.user)
-        } catch (error) {
-          console.error('Failed to fetch user data', error)
-        }
-      }
-    },
-    async logout() {
-    try {
-      const token = this.user.token // Assuming the token is stored in the user object
-
-      if (!token) {
-        console.error('No token found for logout')
-        return
-      }
-
-      await AuthServices.logoutUser(token) // Send token in request body
-    } catch (error) {
-      console.error('Logout failed:', error)
-    }
-
-    Utils.removeItem('user') // Clear stored user data
-    this.user = {} // Reset user object
-    this.$router.push('/') // Redirect to login page
-    }
-  }
-}
 </script>
 
 
