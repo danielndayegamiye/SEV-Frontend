@@ -5,11 +5,28 @@
         <v-app-bar-nav-icon color="#f9f9f9"></v-app-bar-nav-icon>
       </template>
 
-      <v-spacer></v-spacer>
-      <v-avatar style="margin-right: 16px;">
-        <img src="https://via.placeholder.com/100" alt="IR">
+  <v-menu offset-y>
+  <template v-slot:activator="{ props }">
+    <v-avatar v-bind="props" style="margin-right: 16px; cursor: pointer;">
+      <img :src="user.profilePicture" :alt="userInitials" class="avatar-img">
+    </v-avatar>
+  </template>
+
+  <v-card class="user-card" width="250">
+    <v-card-text class="text-center">
+      <v-avatar size="60">
+        <img :src="user.profilePicture" :alt="userInitials" class="avatar-img">
       </v-avatar>
-    </v-app-bar>
+      <h3 class="text-h6" style="padding-top: 10px; font-weight: lighter;">{{ user.fName }} {{ user.lName }}</h3>
+      <h5 class="text-subtitle-2" style="font-weight: lighter;">{{ user.email }}</h5>
+    </v-card-text>
+    <v-divider></v-divider>
+    <v-card-actions>
+      <v-btn variant="outlined" rounded="xl" block color="red" @click="logout">Logout</v-btn>
+    </v-card-actions>
+  </v-card>
+</v-menu>
+</v-app-bar>
 
     <h1 class="header text-h3">Eagle Flight Plan</h1>
     <br><br>

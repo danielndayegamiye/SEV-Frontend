@@ -58,6 +58,8 @@ const handleCredentialResponse = async response => {
     const res = await AuthServices.loginUser(token)
     user.value = res.data
 
+    console.log('User data:', user.value);
+
     // Store user data locally
     Utils.setStore('user', user.value)
 
