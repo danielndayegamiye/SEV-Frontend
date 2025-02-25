@@ -18,6 +18,7 @@
         <img :src="user.profilePicture" :alt="userInitials" class="avatar-img">
       </v-avatar>
       <h3 class="text-h6" style="padding-top: 10px; font-weight: lighter;">{{ user.fName }} {{ user.lName }}</h3>
+      <h5 class="text-subtitle-2" style="font-weight: lighter;">{{ user.email }}</h5>
     </v-card-text>
     <v-divider></v-divider>
     <v-card-actions>
