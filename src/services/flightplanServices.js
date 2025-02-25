@@ -3,22 +3,22 @@
 import apiClient from './services.js';
 
 const FlightPlanService = {
-  async getFlightPlans() {
+  getFlightPlans() {
     return apiClient.get('/flightplans');
   },
-  async getFlightPlan(id) {
+  getFlightPlan(id) {
     return apiClient.get(`/flightplans/${id}`);
   },
-  async getFlightPlansByUserId(userId) {
+  getFlightPlansByUserId(userId) {
     return apiClient.get(`/flightplans/${userId}`);
   },
-  async createFlightPlan(flightplan) {
+  createFlightPlan(flightplan) {
     return apiClient.post('/flightplans', flightplan);
   },
-  async updateFlightPlan(id, flightplan) {
+  updateFlightPlan(id, flightplan) {
     return apiClient.put(`/flightplans/${id}`, flightplan);
   },
-  async deleteFlightPlan(id) {
+  deleteFlightPlan(id) {
     return apiClient.delete(`/flightplans/${id}`);
   },
 };

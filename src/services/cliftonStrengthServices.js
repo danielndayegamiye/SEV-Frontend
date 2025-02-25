@@ -1,27 +1,27 @@
 import apiClient from './services.js';
 
 const CliftonStrengthsService = {
-  async getCliftonStrengths() {
+  getCliftonStrengths() {
     return apiClient.get('/clifton-strengths');
   },
 
-  async getCliftonStrengthsById(cliftonStrengthsId) {
+  getCliftonStrengthsById(cliftonStrengthsId) {
     return apiClient.get(`/clifton-strengths/${cliftonStrengthsId}`);
   },
 
-  async createCliftonStrengths(cliftonStrengthsData) {
+  createCliftonStrengths(cliftonStrengthsData) {
     return apiClient.post('/clifton-strengths', cliftonStrengthsData);
   },
 
-  async updateCliftonStrengths(cliftonStrengthsId, cliftonStrengthsData) {
+  updateCliftonStrengths(cliftonStrengthsId, cliftonStrengthsData) {
     return apiClient.put(`/clifton-strengths/${cliftonStrengthsId}`, cliftonStrengthsData);
   },
 
-  async deleteCliftonStrengthById(cliftonStrengthsId) {
+  deleteCliftonStrengthById(cliftonStrengthsId) {
     return apiClient.delete(`/clifton-strengths/${cliftonStrengthsId}`);
   },
 
-  async deleteCliftonStrengths(cliftonStrengthsId) {
+  deleteCliftonStrengths(cliftonStrengthsId) {
     return apiClient.delete(`/clifton-strengths/${cliftonStrengthsId}`);
   },
 };
