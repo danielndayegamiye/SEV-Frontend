@@ -5,10 +5,26 @@
     <v-app-bar-nav-icon color="#f9f9f9"></v-app-bar-nav-icon>
   </template>
 
-  <v-spacer></v-spacer>
-  <v-avatar style="margin-right: 16px;">
-    <img src="https://via.placeholder.com/100" alt="IR">
-  </v-avatar>
+  <v-menu offset-y>
+  <template v-slot:activator="{ props }">
+    <v-avatar v-bind="props" style="margin-right: 16px; cursor: pointer;">
+      <img :src="user.profilePicture" :alt="userInitials" class="avatar-img">
+    </v-avatar>
+  </template>
+
+  <v-card class="user-card" width="250">
+    <v-card-text class="text-center">
+      <v-avatar size="60">
+        <img :src="user.profilePicture" :alt="userInitials" class="avatar-img">
+      </v-avatar>
+      <h3 class="text-h6" style="padding-top: 10px; font-weight: lighter;">{{ user.fName }} {{ user.lName }}</h3>
+    </v-card-text>
+    <v-divider></v-divider>
+    <v-card-actions>
+      <v-btn variant="outlined" rounded="xl" block color="red" @click="logout">Logout</v-btn>
+    </v-card-actions>
+  </v-card>
+</v-menu>
 </v-app-bar>
 
 <h1 class="header text-h3">Eagle Flight Plan</h1>
@@ -99,16 +115,63 @@
 </template>
 
 <script>
+import AuthServices from '../services/authServices'
+import Utils from '../config/utils.js'
 
 export default {
   name: 'HomePage',
   data() {
     return {
+      user: {},
       currentDate: new Date().toLocaleDateString()
-    };
+    }
+  },
+  computed: {
+    userInitials() {
+      if (this.user.fName && this.user.lName) {
+        return `${this.user.fName.charAt(0)}${this.user.lName.charAt(0)}`.toUpperCase();
+      }
+      return '';
+    }
+  },
+  mounted() {
+    this.fetchUserData()
+  },
+  methods: {
+    async fetchUserData() {
+      const storedUser = Utils.getStore('user')
+      if (storedUser) {
+        this.user = storedUser
+      } else {
+        try {
+          const response = await AuthServices.getUserData()
+          this.user = response.data
+          Utils.setStore('user', this.user)
+        } catch (error) {
+          console.error('Failed to fetch user data', error)
+        }
+      }
+    },
+    async logout() {
+    try {
+      const token = this.user.token // Assuming the token is stored in the user object
+
+      if (!token) {
+        console.error('No token found for logout')
+        return
+      }
+
+      await AuthServices.logoutUser(token) // Send token in request body
+    } catch (error) {
+      console.error('Logout failed:', error)
+    }
+
+    Utils.removeItem('user') // Clear stored user data
+    this.user = {} // Reset user object
+    this.$router.push('/') // Redirect to login page
+    }
   }
 }
-
 </script>
 
 <style scoped>
