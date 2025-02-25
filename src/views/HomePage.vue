@@ -91,47 +91,89 @@
 </template>
 
 <script>
-import { ref, onMounted, computed } from 'vue';
-import studentService from '@/services/studentServices';
+import AuthServices from '../services/authServices'
+import studentService from '@/services/studentServices'
+import Utils from '../config/utils.js'
 
 export default {
   name: 'HomePage',
-  setup() {
-    const currentDate = ref(new Date().toLocaleDateString());
-    const studentData = ref(null);
-
-    onMounted(async () => {
-      try {
-        const user = JSON.parse(localStorage.getItem('user'));
-
-        if (user && user.email) {
-          const response = await studentService.getStudent(user.email);
-          studentData.value = response.data;
-        }
-      } catch (error) {
-        console.error('Error fetching student data:', error);
-      }
-    });
-
-    // Computed property to determine student year and tagline
-    const studentYear = computed(() => {
-      if (!studentData.value) return 'Loading...';
-
-      const semesters = studentData.value.semesters_from_graduation;
-      
-      if (semesters >= 7) return 'Freshman: Learn to Fly';
-      if (semesters >= 5) return 'Sophomore: Chart Your Course';
-      if (semesters >= 3) return 'Junior: Gear Up';
-      return 'Senior: Takeoff';
-    });
-
+  data() {
     return {
-      currentDate,
-      studentData,
-      studentYear
-    };
+      user: {},
+      studentData: null,
+      currentDate: new Date().toLocaleDateString()
+    }
   },
-};
+  computed: {
+    userInitials() {
+      if (this.user.fName && this.user.lName) {
+        return `${this.user.fName.charAt(0)}${this.user.lName.charAt(0)}`.toUpperCase()
+      }
+      return ''
+    },
+    studentYear() {
+      if (!this.studentData) return 'Loading...'
+
+      const semesters = this.studentData.semesters_from_graduation
+      
+      if (semesters >= 7) return 'Freshman: Learn to Fly'
+      if (semesters >= 5) return 'Sophomore: Chart Your Course'
+      if (semesters >= 3) return 'Junior: Gear Up'
+      return 'Senior: Takeoff'
+    }
+  },
+  mounted() {
+    this.fetchUserData(),
+    this.fetchStudentData()
+  },
+  methods: {
+    async fetchUserData() {
+      const storedUser = Utils.getStore('user')
+      if (storedUser) {
+        this.user = storedUser
+        await this.fetchStudentData(storedUser.email) // Fetch student data if user exists
+      } else {
+        try {
+          const response = await AuthServices.getUserData()
+          this.user = response.data
+          Utils.setStore('user', this.user)
+          await this.fetchStudentData(this.user.email) // Fetch student data after fetching user
+        } catch (error) {
+          console.error('Failed to fetch user data', error)
+        }
+      }
+    },
+    async fetchStudentData(email) {
+      if (!email) return
+
+      try {
+        const response = await studentService.getStudent(email)
+        this.studentData = response.data
+      } catch (error) {
+        console.error('Error fetching student data:', error)
+      }
+    },
+    async logout() {
+      try {
+        const token = this.user.token // Assuming the token is stored in the user object
+
+        if (!token) {
+          console.error('No token found for logout')
+          return
+        }
+
+        await AuthServices.logoutUser(token) // Send token in request body
+      } catch (error) {
+        console.error('Logout failed:', error)
+      }
+
+      Utils.removeItem('user') // Clear stored user data
+      this.user = {} // Reset user object
+      this.$router.push('/') // Redirect to login page
+    }
+  }
+}
+
 </script>
 
 
