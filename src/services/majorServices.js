@@ -3,27 +3,27 @@
 import apiClient from './services.js';
 
 const MajorService = {
-  async getAllMajors() {
+  getAllMajors() {
     return apiClient.get('/majors');
   },
 
-  async getMajorById(majorId) {
+  getMajorById(majorId) {
     return apiClient.get(`/majors/${majorId}`);
   },
 
-  async getMajorsByUserId(userId) {
+  getMajorsByUserId(userId) {
     return apiClient.get(`/majors/${userId}`);
   },
 
-  async createMajor(majorData) {
+  createMajor(majorData) {
     return apiClient.post('/majors', majorData);
   },
 
-  async updateMajor(majorId, majorData) {
+  updateMajor(majorId, majorData) {
     return apiClient.put(`/majors/${majorId}`, majorData);
   },
 
-  async deleteMajor(majorId) {
+  deleteMajor(majorId) {
     return apiClient.delete(`/majors/${majorId}`);
   },
 };
